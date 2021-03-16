@@ -1,0 +1,41 @@
+{
+  "name": "appman-pokedex-2018",
+  "version": "0.2.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.4",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-scripts": "^3.4.3"
+  },
+  "scripts": {
+    "start": "npm run build:css && react-scripts start",
+    "build": "npm run build:css && react-scripts build",
+    "test": "react-scripts test",
+    "api": "node ./src/server.js",
+    "eject": "react-scripts eject",
+    "build:css": "postcss src/shared/styles/styles.css -o src/shared/styles/tailwind.css"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.3",
+    "autoprefixer": "^9",
+    "postcss-cli": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+  }
+}
