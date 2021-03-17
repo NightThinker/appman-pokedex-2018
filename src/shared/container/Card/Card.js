@@ -4,7 +4,7 @@ import Text from '../../components/Text/Text'
 import Level from '../../components/Level/Level'
 import logo from '../../../cute.png'
 
-const Card = ({ name, img, hp, str, weak }) => {
+const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard }) => {
 
   return (
     <div className='bg-background-card to-shadow-card shadow flex justify-between p-3'>
@@ -30,8 +30,8 @@ const Card = ({ name, img, hp, str, weak }) => {
           </div>
         </div>
       </div>
-      <div className='cursor-pointer'>
-        <Text size='text-2xl' font='Atma'>Add</Text>
+      <div className='cursor-pointer' onClick={() => onAddCard({ id, name, img, hp, strength: str, weakness: weak, damage, happiness })}>
+        <Text size='text-2xl' font='Atma' >Add</Text>
       </div>
     </div>
   )
