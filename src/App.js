@@ -24,6 +24,26 @@ const COLORS = {
   Fire: "#eb4d4b"
 }
 
+const onResultData = (card) => {
+  return card.cards.map(i => {
+    const hp = i.hp >= 100 ? 100 : 0;
+    const attacks = i.attacks ? i.attacks.length * 50 : 0;
+    const weaknesses = i.weaknesses ? i.weaknesses.length * 100 > 100 ? 100 : 100 : 0;
+    const damage = i.attacks ? i.attacks.reduce((acc, cur) => acc + (cur.damage ? parseInt(cur.damage) : 0), 0) : 0;
+    const happiness = ((hp / 10) + (damage / 10) + 10 - (weaknesses)) / 5
+    return {
+      id: i.id,
+      name: i.name,
+      img: i.imageUrl,
+      hp: `${hp}%`,
+      attacks: `${attacks}%`,
+      weaknesses: `${weaknesses}%`,
+      damage,
+      happiness
+    }
+  })
+}
+
 const App = () => {
 
   const [isOpen, setIsOpen] = useState(true)
@@ -35,27 +55,11 @@ const App = () => {
   useEffect(() => {
     (async () => {
       const { data } = await onGetCards()
-      const newData = data.cards.map(i => {
-        const hp = i.hp >= 100 ? 100 : 0;
-        const attacks = i.attacks ? i.attacks.length * 50 : 0;
-        const weaknesses = i.weaknesses ? i.weaknesses.length * 100 > 100 ? 100 : 100 : 0;
-        const damage = i.attacks ? i.attacks.reduce((acc, cur) => acc + (cur.damage ? parseInt(cur.damage) : 0), 0) : 0;
-        return {
-          id: i.id,
-          name: i.name,
-          img: i.imageUrl,
-          hp: `${hp}%`,
-          attacks: `${attacks}%`,
-          weaknesses: `${weaknesses}%`,
-          damage,
-          happiness: ((hp / 10) + (damage / 10) + 10 - (weaknesses)) / 5
-        }
-      })
-
-      console.log('newData', newData)
+      const newData = onResultData(data)
       setCards(newData)
     })()
   }, [])
+
 
   const onCloseModal = () => {
     setIsOpen(false)
@@ -67,9 +71,10 @@ const App = () => {
   }
 
   const onChangeInput = async () => {
-    console.log('onChangeInput', inputRef.current.value)
-    const res = await onSearchCards(inputRef.current.value)
-    console.log('res', res)
+    console.log('onChangeInput', inputRef.current.value);
+    const { data } = await onSearchCards(inputRef.current.value);
+    const newData = onResultData(data);
+    setCards(newData)
   }
 
   return (
