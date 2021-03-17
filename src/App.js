@@ -1,7 +1,11 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Navbar from './shared/theme/navBar/NavBar'
 import Footer from './shared/theme/Footer/Footer'
+import Modal from './shared/components/Modal/Modal'
+
+import { onGetCards } from './shared/api/api'
+
 import './App.css'
 import './shared/styles/tailwind.css'
 
@@ -20,16 +24,31 @@ const COLORS = {
   Fire: "#eb4d4b"
 }
 
-class App extends Component {
-  render() {
-    return (
-      <div className="flex flex-col">
-        <Navbar />
-        <main className='h-552 overflow-scroll'>kkk</main>
-        <Footer />
-      </div>
-    )
+const App = () => {
+
+  const [isOpen, setIsOpen] = useState(true)
+  const [cards, setCards] = useState([])
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await onGetCards()
+      setCards(data.cards)
+      console.log('card', data.cards)
+    })()
+  }, [])
+
+  const onCloseModal = () => {
+    setIsOpen(false)
   }
+  return (
+    <div className="flex flex-col">
+      <Modal isOpen={isOpen} item={cards} onClose={onCloseModal} />
+      <Navbar />
+      <main className='h-552 overflow-scroll'>
+      </main>
+      <Footer />
+    </div>
+  )
 }
 
 export default App
