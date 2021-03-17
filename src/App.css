@@ -25,3 +25,7 @@
 .Gaegu {
   font-family: 'Gaegu', cursive;
 }
+
+.max-h-225 {
+  max-height: 225px;
+}

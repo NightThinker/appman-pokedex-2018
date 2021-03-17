@@ -37,7 +37,7 @@ const onResultData = (card) => {
       name: i.name,
       img: i.imageUrl,
       hp: `${hp}%`,
-      attacks: `${attacks}%`,
+      strength: `${attacks}%`,
       weaknesses: `${weaknesses}%`,
       damage,
       happiness
@@ -70,9 +70,12 @@ const App = () => {
     console.log('item', item)
     const newCards = cards.filter(i => i.id !== item.id)
     setCards(newCards)
-    const tt = list.concat(item)
-    console.log('tt', tt)
     setList(list.concat(item))
+  }
+
+  const onDeleteCard = (id) => {
+    const result = list.filter(i => i.id !== id)
+    setList(result)
   }
 
   const onChangeInput = async () => {
@@ -83,13 +86,24 @@ const App = () => {
   }
 
 
+
+
   return (
     <div className="flex flex-col">
       <Modal isOpen={isOpen} item={cards} onClose={onCloseModal} onAddCard={onAddCard} inputRef={inputRef} onChangeInput={onChangeInput} />
       <Navbar />
-      <main className='h-552 overflow-scroll'>
-        {list.map(i => (
-          <Card name={i.name} />
+      <main className='h-552 overflow-scroll grid grid-cols-2 p-3 gap-3'>
+        {list.map(({ id, img, name, hp, strength, weaknesses }) => (
+          <Card
+            key={id}
+            id={id}
+            img={img}
+            name={name}
+            hp={hp}
+            str={strength}
+            weak={weaknesses}
+            onDeleteCard={onDeleteCard}
+          />
         ))}
       </main>
       <Footer onClickBtn={() => setIsOpen(true)} />

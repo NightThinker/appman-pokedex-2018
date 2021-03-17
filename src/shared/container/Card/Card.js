@@ -4,24 +4,24 @@ import Text from '../../components/Text/Text'
 import Level from '../../components/Level/Level'
 import logo from '../../../cute.png'
 
-const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard }) => {
+const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard, onDeleteCard }) => {
 
   return (
-    <div className='bg-background-card to-shadow-card shadow flex justify-between p-3'>
-      <div className='flex gap-4'>
-        <img src={img} className='w-32' />
-        <div className=' flex flex-col'>
+    <div className='bg-background-card to-shadow-card shadow flex justify-between p-3 max-h-225'>
+      <div className='flex gap-4 w-11/12'>
+        <img src={img} className='w-36' />
+        <div className=' flex flex-col w-3/4'>
           <Text size='text-4xl' className='mb-2'>{name}</Text>
-          <div className='flex'>
-            <Text className='w-28'>HP</Text>
+          <div className='flex gap-2'>
+            <Text className='w-1/4'>HP</Text>
             <Level value={hp} />
           </div>
-          <div className='flex'>
-            <Text className='w-28'>STR</Text>
+          <div className='flex gap-2'>
+            <Text className='w-1/4'>STR</Text>
             <Level value={str} />
           </div>
-          <div className='flex'>
-            <Text className='w-28'>WEAK</Text>
+          <div className='flex gap-2'>
+            <Text className='w-1/4'>WEAK</Text>
             <Level value={weak} />
           </div>
           <div className='mt-2'>
@@ -30,9 +30,16 @@ const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard }) =>
           </div>
         </div>
       </div>
-      <div className='cursor-pointer' onClick={() => onAddCard({ id, name, img, hp, strength: str, weakness: weak, damage, happiness })}>
-        <Text size='text-2xl' font='Atma' >Add</Text>
-      </div>
+      {onAddCard && (
+        <div className='cursor-pointer' onClick={() => onAddCard({ id, name, img, hp, strength: str, weaknesses: weak, damage, happiness })}>
+          <Text size='text-2xl' font='Atma' className='text-color-btn'>Add</Text>
+        </div>
+      )}
+      {onDeleteCard && (
+        <div className='cursor-pointer' onClick={() => onDeleteCard(id)}>
+          <Text size='text-2xl' font='Atma' className='text-color-btn'>X</Text>
+        </div>
+      )}
     </div>
   )
 }
