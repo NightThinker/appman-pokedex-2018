@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Navbar from './shared/theme/navBar/NavBar'
 import Footer from './shared/theme/Footer/Footer'
 import Modal from './shared/components/Modal/Modal'
+import Card from './shared/container/Card/Card'
 
 import { onGetCards, onSearchCards } from './shared/api/api'
 
@@ -66,8 +67,12 @@ const App = () => {
   }
 
   const onAddCard = (item) => {
+    console.log('item', item)
     const newCards = cards.filter(i => i.id !== item.id)
     setCards(newCards)
+    const tt = list.concat(item)
+    console.log('tt', tt)
+    setList(list.concat(item))
   }
 
   const onChangeInput = async () => {
@@ -77,13 +82,17 @@ const App = () => {
     setCards(newData)
   }
 
+
   return (
     <div className="flex flex-col">
       <Modal isOpen={isOpen} item={cards} onClose={onCloseModal} onAddCard={onAddCard} inputRef={inputRef} onChangeInput={onChangeInput} />
       <Navbar />
       <main className='h-552 overflow-scroll'>
+        {list.map(i => (
+          <Card name={i.name} />
+        ))}
       </main>
-      <Footer />
+      <Footer onClickBtn={() => setIsOpen(true)} />
     </div>
   )
 }
