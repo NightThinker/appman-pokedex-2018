@@ -7,7 +7,7 @@ import logo from '../../../cute.png'
 const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard, onDeleteCard }) => {
 
   return (
-    <div className='bg-background-card to-shadow-card shadow flex justify-between p-3 max-h-225'>
+    <div className='bg-background-card to-shadow-card shadow flex justify-between p-3 max-h-225 hover:to-shadow-card-hover'>
       <div className='flex gap-4 w-11/12'>
         <img src={img} className='w-36' />
         <div className=' flex flex-col w-3/4'>
@@ -31,13 +31,13 @@ const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard, onDe
         </div>
       </div>
       {onAddCard && (
-        <div className='cursor-pointer' onClick={() => onAddCard({ id, name, img, hp, strength: str, weaknesses: weak, damage, happiness })}>
-          <Text size='text-2xl' font='Atma' className='text-color-btn'>Add</Text>
+        <div>
+          <Text size='text-2xl' font='Atma' className='text-color-btn cursor-pointer' onClick={() => onAddCard({ id, name, img, hp, strength: str, weaknesses: weak, damage, happiness })}>Add</Text>
         </div>
       )}
       {onDeleteCard && (
-        <div className='cursor-pointer' onClick={() => onDeleteCard(id)}>
-          <Text size='text-2xl' font='Atma' className='text-color-btn'>X</Text>
+        <div>
+          <Text size='text-2xl' font='Atma' className='text-color-btn cursor-pointer' onClick={() => onDeleteCard(id)}>X</Text>
         </div>
       )}
     </div>
