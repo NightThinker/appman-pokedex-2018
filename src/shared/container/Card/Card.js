@@ -33,7 +33,7 @@ const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard, onDe
             <Text className='w-1/4'>WEAK</Text>
             <Level value={weak} />
           </div>
-          <div className='flex mt-2 gap-2'>
+          <div className='flex mt-2 gap-2 overflow-hidden'>
             {rows.map(i => (
               <img src={logo} className='w-6' />
             ))}
