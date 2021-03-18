@@ -3,8 +3,6 @@ import Input from '../Input/Input'
 import Card from '../../container/Card/Card'
 
 const Modal = ({ isOpen, item, inputRef, onChangeInput, onClose, onAddCard }) => {
-  console.log('item', item)
-
   return isOpen ? (
     <>
       <div className='absolute top-0 left-0 h-fullscreen w-fullscreen bg-background-modalOutside z-10' onClick={onClose} />
@@ -27,7 +25,6 @@ const Modal = ({ isOpen, item, inputRef, onChangeInput, onClose, onAddCard }) =>
       </div>
     </>
   ) : null
-
 }
 
-export default Modal
+export default React.memo(Modal)

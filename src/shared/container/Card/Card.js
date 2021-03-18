@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Text from '../../components/Text/Text'
 import Level from '../../components/Level/Level'
 import logo from '../../../cute.png'
 
 const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard, onDeleteCard }) => {
+  const [hover, setHover] = useState(false);
 
   return (
-    <div className='bg-background-card to-shadow-card shadow flex justify-between p-3 max-h-225 hover:to-shadow-card-hover'>
+    <div
+      className='bg-background-card to-shadow-card shadow flex justify-between p-3 max-h-225 hover:to-shadow-card-hover'
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}>
       <div className='flex gap-4 w-11/12'>
         <img src={img} className='w-36' />
         <div className=' flex flex-col w-3/4'>
@@ -26,19 +30,15 @@ const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard, onDe
           </div>
           <div className='mt-2'>
 
-            <img src={logo} className='w-10' />
+            <img src={logo} className='w-7' />
           </div>
         </div>
       </div>
-      {onAddCard && (
-        <div>
-          <Text size='text-2xl' font='Atma' className='text-color-btn cursor-pointer' onClick={() => onAddCard({ id, name, img, hp, strength: str, weaknesses: weak, damage, happiness })}>Add</Text>
-        </div>
+      {onAddCard && hover && (
+        <Text size='text-2xl' font='Atma' className='text-color-btn cursor-pointer' onClick={() => onAddCard({ id, name, img, hp, strength: str, weaknesses: weak, damage, happiness })}>Add</Text>
       )}
-      {onDeleteCard && (
-        <div>
-          <Text size='text-2xl' font='Atma' className='text-color-btn cursor-pointer' onClick={() => onDeleteCard(id)}>X</Text>
-        </div>
+      {onDeleteCard && hover && (
+        <Text size='text-2xl' font='Atma' className='text-color-btn cursor-pointer' onClick={() => onDeleteCard(id)}>X</Text>
       )}
     </div>
   )

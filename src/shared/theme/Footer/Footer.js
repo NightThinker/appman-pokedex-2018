@@ -12,4 +12,4 @@ const Footer = ({ onClickBtn }) => {
   )
 }
 
-export default Footer
+export default React.memo(Footer)
