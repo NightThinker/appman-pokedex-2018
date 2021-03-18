@@ -40,8 +40,12 @@ const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard, onDe
           </div>
         </div>
       </div>
-      {onAddCard && hover && (
-        <Text size='text-2xl' font='Atma' className='text-color-btn cursor-pointer' onClick={() => onAddCard({ id, name, img, hp, strength: str, weaknesses: weak, damage, happiness })}>Add</Text>
+      {onAddCard && (
+        <div className='w-10'>
+          { hover && (
+            <Text size='text-2xl' font='Atma' className='text-color-btn cursor-pointer' onClick={() => onAddCard({ id, name, img, hp, strength: str, weaknesses: weak, damage, happiness })}>Add</Text>
+          )}
+        </div>
       )}
       {onDeleteCard && hover && (
         <Text size='text-2xl' font='Atma' className='text-color-btn cursor-pointer' onClick={() => onDeleteCard(id)}>X</Text>

@@ -69,7 +69,7 @@ const App = () => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col relative">
       <Modal isOpen={isOpen} item={cards} onClose={onCloseModal} onAddCard={onAddCard} inputRef={inputRef} onChangeInput={onChangeInput} />
       <Navbar />
       <main className='h-552 overflow-scroll grid grid-cols-2 p-3 gap-3'>
