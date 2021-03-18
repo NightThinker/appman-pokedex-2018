@@ -16,7 +16,7 @@ const onResultData = (card) => {
     const attacks = i.attacks ? i.attacks.length * 50 : 0;
     const weaknesses = i.weaknesses ? i.weaknesses.length * 100 > 100 ? 100 : 100 : 0;
     const damage = i.attacks ? i.attacks.reduce((acc, cur) => acc + (cur.damage ? parseInt(cur.damage) : 0), 0) : 0;
-    const happiness = ((hp / 10) + (damage / 10) + 10 - (weaknesses)) / 5
+    const happiness = Math.round(Math.abs(((hp / 10) + (damage / 10) + 10 - (weaknesses)) / 5))
     return {
       id: i.id,
       name: i.name,
@@ -32,7 +32,7 @@ const onResultData = (card) => {
 
 const App = () => {
 
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
   const [cards, setCards] = useState([])
   const [list, setList] = useState([])
 
@@ -52,7 +52,6 @@ const App = () => {
   }
 
   const onAddCard = (item) => {
-    console.log('item', item)
     const newCards = cards.filter(i => i.id !== item.id)
     setCards(newCards)
     setList(list.concat(item))
@@ -64,7 +63,6 @@ const App = () => {
   }
 
   const onChangeInput = async () => {
-    console.log('onChangeInput', inputRef.current.value);
     const { data } = await onSearchCards(inputRef.current.value);
     const newData = onResultData(data);
     setCards(newData)
@@ -75,7 +73,7 @@ const App = () => {
       <Modal isOpen={isOpen} item={cards} onClose={onCloseModal} onAddCard={onAddCard} inputRef={inputRef} onChangeInput={onChangeInput} />
       <Navbar />
       <main className='h-552 overflow-scroll grid grid-cols-2 p-3 gap-3'>
-        {list.map(({ id, img, name, hp, strength, weaknesses }) => (
+        {list.map(({ id, img, name, hp, strength, weaknesses, happiness }) => (
           <Card
             key={id}
             id={id}
@@ -84,6 +82,7 @@ const App = () => {
             hp={hp}
             str={strength}
             weak={weaknesses}
+            happiness={happiness}
             onDeleteCard={onDeleteCard}
           />
         ))}

@@ -7,6 +7,11 @@ import logo from '../../../cute.png'
 const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard, onDeleteCard }) => {
   const [hover, setHover] = useState(false);
 
+  let rows = [];
+  for (let m = 0; m < happiness; m++) {
+    rows.push(m);
+  }
+
   return (
     <div
       className='bg-background-card to-shadow-card shadow flex justify-between p-3 max-h-225 hover:to-shadow-card-hover'
@@ -28,9 +33,10 @@ const Card = ({ id, name, img, hp, str, weak, damage, happiness, onAddCard, onDe
             <Text className='w-1/4'>WEAK</Text>
             <Level value={weak} />
           </div>
-          <div className='mt-2'>
-
-            <img src={logo} className='w-7' />
+          <div className='flex mt-2 gap-2'>
+            {rows.map(i => (
+              <img src={logo} className='w-6' />
+            ))}
           </div>
         </div>
       </div>
