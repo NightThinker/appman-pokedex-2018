@@ -29,3 +29,7 @@
 .max-h-225 {
   max-height: 225px;
 }
+
+.min-w-775 {
+  min-width: 775px;
+}
